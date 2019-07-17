@@ -5,9 +5,9 @@ pipeline {
             args '-p 8989:8080'
         }
     }
-    //environment {
-    //    CI = 'true'
-    //}
+    environment {
+        CI = 'true'
+    }
     stages {
         stage('Build') {
             steps {
