@@ -14,22 +14,22 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Deliver for development') {
+        stage('Deliver for uat') {
             when {
                 branch 'uat' 
             }
             steps {
-                sh './jenkins/scripts/deliver-for-development.sh'
+                sh './jenkins/scripts/deliver-for-uat.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
         }
-        stage('Deploy for production') {
+        stage('Deploy for dev') {
             when {
-                branch 'production'  
+                branch 'develop'  
             }
             steps {
-                sh './jenkins/scripts/deploy-for-production.sh'
+                sh './jenkins/scripts/deploy-for-develop.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
