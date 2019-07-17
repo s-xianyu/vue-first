@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                sh 'npm install --registry https://registry.npm.taobao.org'
             }
         }
         stage('Deliver for uat') {
@@ -27,6 +27,16 @@ pipeline {
         stage('Deploy for dev') {
             when {
                 branch 'develop'  
+            }
+            steps {
+                sh './jenkins/scripts/deploy-for-develop.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
+            }
+        }
+        stage('Deploy for master') {
+            when {
+                branch 'master'  
             }
             steps {
                 sh './jenkins/scripts/deploy-for-develop.sh'
