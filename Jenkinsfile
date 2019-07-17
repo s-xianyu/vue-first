@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:12-slim'
+            image 'node:6-alpine'
             args '-p 8989:8080'
         }
     }
@@ -11,17 +11,17 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install --registry https://registry.npm.taobao.org'
+                sh 'npm install'
             }
         }
-        //stage('Run') {
-        //    steps {
-        //        sh 'npm run dev'
-        //    }
-        //}
-        stage('Deliver for uat') {
+        stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
+        stage('Deliver for development') {
             when {
-                branch 'uat' 
+                branch 'development' 
             }
             steps {
                 sh './jenkins/scripts/deliver-for-development.sh'
@@ -29,15 +29,15 @@ pipeline {
                 sh './jenkins/scripts/kill.sh'
             }
         }
-        //stage('Deploy for develop') {
-        //    when {
-        //        branch 'develop'  
-        //    }
-        //    steps {
-        //        sh 'npm run dev'
-        //        input message: 'Finished using the web site? (Click "Proceed" to continue)'
-        //        sh './jenkins/scripts/kill.sh'
-        //    }
-        //}
+        stage('Deploy for production') {
+            when {
+                branch 'production'  
+            }
+            steps {
+                sh './jenkins/scripts/deploy-for-production.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
+            }
+        }
     }
 }
