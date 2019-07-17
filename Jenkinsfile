@@ -5,16 +5,16 @@ pipeline {
             args '-p 8989:8080'
         }
     }
-    environment {
-        CI = 'true'
-    }
+    //environment {
+    //    CI = 'true'
+    //}
     stages {
         stage('Build') {
             steps {
                 sh 'npm install --registry https://registry.npm.taobao.org'
             }
         }
-        stage('Deliver for development') {
+        stage('Deliver for uat') {
             when {
                 branch 'uat' 
             }
@@ -24,7 +24,7 @@ pipeline {
                 sh './jenkins/scripts/kill.sh'
             }
         }
-        stage('Deploy for production') {
+        stage('Deploy for develop') {
             when {
                 branch 'develop'  
             }
