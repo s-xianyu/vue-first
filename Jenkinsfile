@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:6-alpine'
-            args '-p 3100:3000 -p 5100:5000'
+            args '-p 8989:8080'
         }
     }
     environment {
@@ -11,20 +11,20 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                sh 'npm install --registry https://registry.npm.taobao.org' 
             }
         }
         stage('Test') {
             steps {
-                sh './jenkins/scripts/test.sh'
+                sh 'npm run unit'
             }
         }
-        stage('Deliver for development') {
+        stage('Deliver for develop') {
             when {
-                branch 'development' 
+                branch 'develop' 
             }
             steps {
-                sh './jenkins/scripts/deliver-for-development.sh'
+                sh 'npm run dev'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
