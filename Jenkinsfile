@@ -11,30 +11,35 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install --registry https://registry.npm.taobao.org' 
+                sh 'npm install  --registry=https://registry.npm.taobao.org'
             }
         }
-        stage('Test') {
-            steps {
-                sh 'npm run unit'
-            }
-        }
-        stage('Deliver for develop') {
+        stage('Deliver for uat') {
             when {
-                branch 'develop' 
+                branch 'uat' 
             }
             steps {
-                sh 'npm run dev'
+                sh './jenkins/scripts/deliver-for-uat.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
         }
-        stage('Deploy for production') {
+        stage('Deploy for dev') {
             when {
-                branch 'production'  
+                branch 'develop'  
             }
             steps {
-                sh './jenkins/scripts/deploy-for-production.sh'
+                sh './jenkins/scripts/deploy-for-develop.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
+            }
+        }
+        stage('Deploy for master') {
+            when {
+                branch 'master'  
+            }
+            steps {
+                sh './jenkins/scripts/deploy-for-develop.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
