@@ -1,18 +1,21 @@
 <template>
   <div>
-    <h2>123123123</h2>
+    <h2>{{ msg }}</h2>
   </div>
 </template>
+
 <script>
 export default {
-  name: "Hi",
-  data() {
+  name: 'Hi',
+  data () {
     return {
-      message : 'Wo Shi Hi!'
-    };
+      msg: 'Welcome to Your Vue.js App 123423141234'
+    }
   }
-};
+}
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>
