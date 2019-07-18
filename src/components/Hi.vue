@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{message}}</h2>
+    <h2>123123123</h2>
   </div>
 </template>
 <script>
