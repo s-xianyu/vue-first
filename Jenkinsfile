@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm  --registry=https://registry.npm.taobao.org  install'
+                sh 'npm install --registry=http://192.168.20.220:8081/repository/npm/'
             }
         }
         stage('Deliver for uat') {
