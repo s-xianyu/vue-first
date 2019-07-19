@@ -20,8 +20,10 @@ pipeline {
         echo "current commit: $GIT_COMMIT"
         echo "current commit: $GIT_BRANCH"
         echo "current build number: $BUILD_NUMBER"
-        sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT} .'
-        sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}'
+        //sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT} .'
+        //sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}'
+        sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:v1 .'
+        sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:v2'
       }
     }
     stage('Deploy for master') {
