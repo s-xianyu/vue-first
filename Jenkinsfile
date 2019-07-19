@@ -17,6 +17,7 @@ pipeline {
         branch 'develop'
       }
       steps {
+        echo "current commit: $GIT_COMMIT"
         sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT} .'
         sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}'
       }
