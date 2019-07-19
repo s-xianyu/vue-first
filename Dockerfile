@@ -1,5 +1,5 @@
 FROM node:10.15.3 as build-stage
-MAINTAINER Potato
+# MAINTAINER potato
 
 # 拷贝当前目录到镜像中
 WORKDIR /root/front/
