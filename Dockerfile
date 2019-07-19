@@ -1,6 +1,7 @@
 FROM 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/node:1.0 as build-stage
 WORKDIR /app
 COPY . .
+RUN ls -ltr
 RUN \
     npm install --registry=https://registry.npm.taobao.org  && \
     npm run build

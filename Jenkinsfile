@@ -31,9 +31,9 @@ pipeline {
         branch 'master'
       }
       steps {
-        sh './jenkins/scripts/deploy-for-develop.sh'
         input 'Finished using the web site? (Click "Proceed" to continue)'
-        sh './jenkins/scripts/kill.sh'
+        sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT} .'
+        sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}'
       }
     }
   }
