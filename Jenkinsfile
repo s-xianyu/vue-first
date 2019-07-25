@@ -24,7 +24,7 @@ pipeline {
         // sh 'git clone ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git'
         sh 'cd k8s-yaml && git pull'
         sh 'sed -i "s/vue-first:.*$/vue-first:${GIT_COMMIT}/" k8s-yaml/front/vue-first.yaml'
-        sh 'git add . && git commit -m "Update vue-first image version to ${GIT_COMMIT}" && git push'
+        sh 'git add . && git commit -m "Update vue-first image version to ${GIT_COMMIT}" && git push origin master'
       }
     }
     stage('Deploy for master') {
