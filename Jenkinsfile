@@ -34,8 +34,8 @@ pipeline {
       }
       steps {
         input 'Finished using the web site? (Click "Proceed" to continue)'
-        sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:v2 .'
-        sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:v2'
+        sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:v1 .'
+        sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:v1'
       }
     }
   }
