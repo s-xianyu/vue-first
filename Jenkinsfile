@@ -25,8 +25,8 @@ pipeline {
         sh """
         git clone ssh://git@git.wokoworks.com:2222/Devops/devops.git k8s-yaml
         cd k8s-yaml/front
-        sed -i "s/905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:.*$/905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:$GIT_COMMIT/
-        git add . && git commit -m "Update vue-first image version to $GIT_COMMIT" && git push
+        sed -i "s/905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:.*$/905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}/
+        git add . && git commit -m "Update vue-first image version to ${GIT_COMMIT}" && git push
         """
       }
     }
