@@ -22,11 +22,10 @@ pipeline {
         echo "current build number: $BUILD_NUMBER"
         sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT} .'
         sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}'
-        sh """
-        git clone ssh://git@git.wokoworks.com:2222/Devops/devops.git k8s-yaml
-        cd k8s-yaml/front
-        sed -i "s/905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:.*$/905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}/
-        git add . && git commit -m "Update vue-first image version to ${GIT_COMMIT}" && git push
+        sh 'git clone ssh://git@git.wokoworks.com:2222/Devops/devops.git k8s-yaml'
+        sh 'cd k8s-yaml/front'
+        sh 'sed -i "s/905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:.*$/905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}/'
+        sh 'git add . && git commit -m "Update vue-first image version to ${GIT_COMMIT}" && git push'
         """
       }
     }
