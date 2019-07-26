@@ -7,18 +7,6 @@ pipeline {
         timestamps()
   }
   stages {
-    // stage('CleanWS') {
-    //   steps {
-    //     script {
-    //       try {
-    //         deleteDir()
-    //       }catch(err){
-    //         echo "${err}"
-    //         sh 'exit 1'
-    //       }
-    //     }
-    //   }
-    // }
     stage('Build') {
       steps {
         // echo "current git project: ${GIT_PROJECT}"
@@ -41,6 +29,18 @@ pipeline {
       steps {
         sh 'sed -i "s/vue-first:.*$/vue-first:${GIT_COMMIT}/" k8s-yaml/front/vue-first.yaml'
         sh 'cd k8s-yaml && git add . && git commit -m  "Update vue-first image version to ${GIT_COMMIT}" && git push origin master'
+      }
+    }
+    stage('CleanWS') {
+      steps {
+        script {
+          try {
+            deleteDir()
+          }catch(err){
+            echo "${err}"
+            sh 'exit 1'
+          }
+        }
       }
     }
   }
