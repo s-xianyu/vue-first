@@ -7,18 +7,18 @@ pipeline {
         timestamps()
   }
   stages {
-    stage('CleanWS') {
-      steps {
-        script {
-          try {
-            deleteDir()
-          }catch(err){
-            echo "${err}"
-            sh 'exit 1'
-          }
-        }
-      }
-    }
+    // stage('CleanWS') {
+    //   steps {
+    //     script {
+    //       try {
+    //         deleteDir()
+    //       }catch(err){
+    //         echo "${err}"
+    //         sh 'exit 1'
+    //       }
+    //     }
+    //   }
+    // }
     stage('Build') {
       steps {
         // echo "current git project: ${GIT_PROJECT}"
