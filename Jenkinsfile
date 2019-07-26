@@ -39,14 +39,8 @@ pipeline {
     }
     stage('Update Yaml') {
       steps {
-        sh 
-        """
-        sed -i "s/vue-first:.*$/vue-first:${GIT_COMMIT}/" k8s-yaml/front/vue-first.yaml  &&
-        cd k8s-yaml &&
-        git add . &&
-        git commit -m  "Update vue-first image version to ${GIT_COMMIT}" &&
-        git push origin master
-        """
+        sh 'sed -i "s/vue-first:.*$/vue-first:${GIT_COMMIT}/" k8s-yaml/front/vue-first.yaml'
+        sh 'cd k8s-yaml && git add . && git commit -m  "Update vue-first image version to ${GIT_COMMIT}" && git push origin master'
       }
     }
   }
