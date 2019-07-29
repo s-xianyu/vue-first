@@ -11,6 +11,7 @@ pipeline {
   environment {
     registry = "905798597445.dkr.ecr.ap-southeast-1.amazonaws.com"
     appname = sh(returnStdout: true, script: "jq -r '.name' package.json").trim()
+    K8S_YAML_GIT_URL = 'ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git'
   }
   stages {
     stage('Test') {
@@ -29,8 +30,8 @@ pipeline {
       steps {
         script {
           try {
-            timeout(time:30, unit:'SECONDS') {
-              input message: "this action will stop service, are you sure you want to execute？", ok: "yes"
+            timeout(time:120, unit:'SECONDS') {
+              input message: "this action will stop service, are you sure you want to execute？", ok: "push"
             }
           } catch(err) { // timeout reached or input Aborted
               def user = err.getCauses()[0].getUser()
@@ -47,7 +48,9 @@ pipeline {
     }
     stage('Clone k8s-yaml') {
       steps {
-        sh "git clone ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git"
+        echo "Checkout will be done for Git branch: master"
+        checkout([$class: 'GitSCM', branches: [[name: "*/master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: ${K8S_YAML_GIT_URL}]])
+        // sh "git clone ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git"
       }
     }
     stage('Update Yaml') {
