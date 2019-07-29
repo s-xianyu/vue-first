@@ -45,12 +45,12 @@ pipeline {
             }
           } catch(err) { // timeout reached or input Aborted
               echo "${err}"
-              def user = err.getCauses()[0].getUser()
-                if('SYSTEM' == user.toString()) {
-                  echo ("Input timeout expired")
-                } else {
-                    echo "Input aborted by: [${user}]"
-                }
+              //def user = err.getCauses()[0].getUser()
+              //  if('SYSTEM' == user.toString()) {
+              //    echo ("Input timeout expired")
+              //  } else {
+              //      echo "Input aborted by: [${user}]"
+              //  }
               sh 'exit 1'
             }
         }
@@ -91,7 +91,9 @@ pipeline {
   }
   post {
     failure {
-      dingTalk  accessToken:"https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65",message:"发布失败，干得不错"
+      dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:'',
+      message:"发布失败，干得不错!"
+      echo "failure"
     }
     cleanup {
       echo 'One way or another, I have finished'
