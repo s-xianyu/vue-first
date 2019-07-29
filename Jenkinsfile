@@ -1,4 +1,3 @@
-def 
 pipeline {
   agent any
   //triggers {
