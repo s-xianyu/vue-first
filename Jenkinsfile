@@ -82,14 +82,17 @@ pipeline {
     //    }
     //  }
     //}
-    stage('CleanWorkspace') {
-      steps {
-        echo "clean k8s-yaml list"
-        // cleanWs(patterns: [[pattern: './k8s-yaml', type: 'INCLUDE']])
-      }
-    }
+    //stage('CleanWorkspace') {
+    //  steps {
+    //    echo "clean k8s-yaml list"
+    //    // cleanWs(patterns: [[pattern: './k8s-yaml', type: 'INCLUDE']])
+    //  }
+    //}
   }
   post {
+    failure {
+      dingTalk  access Token:'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65',message:"发布失败，干得不错"
+    }
     cleanup {
       echo 'One way or another, I have finished'
       dir("${workspace}/k8s-yaml") {
