@@ -30,7 +30,7 @@ pipeline {
       steps {
         script {
           try {
-            timeout(time:120, unit:'SECONDS') {
+            timeout(time:30, unit:'SECONDS') {
               input message: "this action will stop service, are you sure you want to execute？", ok: "push"
             }
           } catch(err) { // timeout reached or input Aborted
@@ -38,8 +38,8 @@ pipeline {
                 if('SYSTEM' == user.toString()) {
                   echo ("Input timeout expired")
                 } else {
-                  echo "Input aborted by: [${user}]"
-                  error("Pipeline aborted by: [${user}]")
+                    echo "Input aborted by: [${user}]"
+                    error("Pipeline aborted by: [${user}]")
                 }
             }
         }
