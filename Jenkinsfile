@@ -21,7 +21,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        // input message: 'Finished using the web site? (Click "Proceed" to continue)'
+        input message: 'Finished using the web site? (Click "Proceed" to continue)'
         sh "docker build -t ${registry}/${appname}:${GIT_COMMIT} ."
       }
     }
