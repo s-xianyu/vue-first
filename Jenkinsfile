@@ -4,17 +4,18 @@ pipeline {
   //    pollSCM('* * * * *')
   //}
   // 每个步骤打出时间戳
-  //options {
+  options {
+    timeout(time: 1, unit: 'HOURS')
   //      timestamps()
-  //}
-  //environment {
-  //  appname=$(jq -r ".name" package.json)
-  //}
+  }
+  environment {
+    appname = sh(returnStdout: true, script: "jq -r '.name' package.json")
+  }
   stages {
     stage('Test') {
       steps {
-        //echo "who build:${CAUSE}"
-        echo "project name:${JOB_BASE_NAME}"
+        // echo "who build:${CAUSE}"
+        // echo "project name:${JOB_BASE_NAME}"
         echo "project name2:${JOB_NAME}"
         // echo "status:${BUILD_STATUS}"
         // echo "custom name:${appname}"
