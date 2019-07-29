@@ -18,12 +18,13 @@ pipeline {
         // echo "project name:${JOB_BASE_NAME}"
         echo "project name2:${JOB_NAME}"
         // echo "status:${BUILD_STATUS}"
-        // echo "custom name:${appname}"
+        echo "custom name:${appname}"
         // echo "custom name1:${appname1}"
       }
     }
     stage('Build') {
       steps {
+        input message: 'Finished using the web site? (Click "Proceed" to continue)'
         sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT} .'
       }
     }
