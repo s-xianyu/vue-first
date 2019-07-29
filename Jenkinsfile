@@ -14,7 +14,7 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        echo "custom name:${appname}"
+        echo "custom name:${appname}12341234"
       }
     }
     stage('Build') {
