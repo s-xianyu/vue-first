@@ -31,7 +31,17 @@ pipeline {
         script {
           try {
             timeout(time:30, unit:'SECONDS') {
-              input message: "this action will stop service, are you sure you want to execute？", ok: "push"
+              userInput = input(
+                message: 'Input info',
+                parameters: [
+                  [$class: 'TextParameterDefinition',
+                   defaultValue: push,
+                   description: 'push image', name: 'enter push'
+                  ]
+                ]
+              )
+              echo "123"
+              // input message: "this action will stop service, are you sure you want to execute？", ok: "push"
             }
           } catch(err) { // timeout reached or input Aborted
               echo "${err}"
