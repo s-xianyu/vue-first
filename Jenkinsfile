@@ -14,7 +14,7 @@ pipeline {
     stage('Test') {
       steps {
         //echo "who build:${CAUSE}"
-        echo "project name:${PROJECT_NAME}"
+        // echo "project name:${PROJECT_NAME}"
         echo "project name2:${JOB_NAME}"
         echo "status:${BUILD_STATUS}"
         // echo "custom name:${appname}"
