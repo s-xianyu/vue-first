@@ -35,6 +35,7 @@ pipeline {
             }
           } catch(err) { // timeout reached or input Aborted
               echo "${err}"
+              sh 'exit 1'
               //def user = err.getCauses()[0].getUser()
               //  if('SYSTEM' == user.toString()) {
               //    echo ("Input timeout expired")
