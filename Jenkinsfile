@@ -1,5 +1,3 @@
-// def appname1=$(jq -r '.name' package.json)
-
 pipeline {
   agent any
   //triggers {
