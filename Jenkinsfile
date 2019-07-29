@@ -9,7 +9,7 @@ pipeline {
   //      timestamps()
   }
   environment {
-    registry = 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com
+    registry = "905798597445.dkr.ecr.ap-southeast-1.amazonaws.com"
     appname = sh(returnStdout: true, script: "jq -r '.name' package.json").trim()
   }
   stages {
