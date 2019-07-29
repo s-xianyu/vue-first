@@ -8,7 +8,7 @@ pipeline {
   //      timestamps()
   //}
   environment {
-    appname=$(jq -r '.name' package.json)
+    appname=$(jq -r ".name" package.json)
   }
   stages {
     stage('Test') {
