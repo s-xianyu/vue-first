@@ -26,8 +26,13 @@ pipeline {
       }
     }
     stage('Push') {
+      options {
+        timeout(time: 60, unit: 'SECONDS') {
+          input message: "this action will stop service, are you sure you want to execute？", ok: "yes"
+        }
+      }
       steps {
-        input message: 'two (Click "Proceed" to continue)'
+        // input message: 'two (Click "Proceed" to continue)'
         sh "docker push ${registry}/${appname}:${GIT_COMMIT}"
       }
     }
