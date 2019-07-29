@@ -1,22 +1,31 @@
+def appname=$(jq -r '.name' package.json)
+
 pipeline {
   agent any
   //triggers {
   //    pollSCM('* * * * *')
   //}
+  // 每个步骤打出时间戳
   options {
         timestamps()
   }
   stages {
+    stage('Test') {
+      steps {
+        echo "who build:${CAUSE}"
+        echo "project name:${PROJECT_NAME}"
+        echo "project name2:${JOB_NAME}"
+        echo "status:${BUILD_STATUS}"
+        echo "custom name:${appname}"
+      }
+    }
     stage('Build') {
       steps {
-        // echo "current git project: ${GIT_PROJECT}"
         sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT} .'
       }
     }
     stage('Push') {
       steps {
-        echo "current commit: ${GIT_COMMIT}"
-        echo "current commit: ${GIT_BRANCH}"
         sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}'
       }
     }
