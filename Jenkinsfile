@@ -14,23 +14,18 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        // echo "who build:${CAUSE}"
-        // echo "project name:${JOB_BASE_NAME}"
-        echo "project name2:${JOB_NAME}"
-        // echo "status:${BUILD_STATUS}"
         echo "custom name:${appname}"
-        // echo "custom name1:${appname1}"
       }
     }
     stage('Build') {
       steps {
         input message: 'Finished using the web site? (Click "Proceed" to continue)'
-        sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT} .'
+        sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/${appname}:${GIT_COMMIT} .'
       }
     }
     stage('Push') {
       steps {
-        sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/vue-first:${GIT_COMMIT}'
+        sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/${appname}:${GIT_COMMIT}'
       }
     }
     stage('Clone k8s-yaml') {
@@ -40,8 +35,8 @@ pipeline {
     }
     stage('Update Yaml') {
       steps {
-        sh 'sed -i "s/vue-first:.*$/vue-first:${GIT_COMMIT}/" k8s-yaml/front/vue-first.yaml'
-        sh 'cd k8s-yaml && git add . && git commit -m  "Update vue-first image version to ${GIT_COMMIT}" && git push origin master'
+        sh 'sed -i "s/${appname}:.*$/${appname}:${GIT_COMMIT}/" k8s-yaml/front/${appname}.yaml'
+        sh 'cd k8s-yaml && git add . && git commit -m  "Update ${appname} image version to ${GIT_COMMIT}" && git push origin master'
       }
     }
     stage('CleanWS') {
