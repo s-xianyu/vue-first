@@ -7,9 +7,9 @@ pipeline {
   //options {
   //      timestamps()
   //}
-  environment {
-    appname=$(jq -r ".name" package.json)
-  }
+  //environment {
+  //  appname=$(jq -r ".name" package.json)
+  //}
   stages {
     stage('Test') {
       steps {
@@ -17,7 +17,7 @@ pipeline {
         echo "project name:${PROJECT_NAME}"
         echo "project name2:${JOB_NAME}"
         echo "status:${BUILD_STATUS}"
-        echo "custom name:${appname}"
+        // echo "custom name:${appname}"
         // echo "custom name1:${appname1}"
       }
     }
