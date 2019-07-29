@@ -1,4 +1,4 @@
-def appname1=$(jq -r '.name' package.json)
+// def appname1=$(jq -r '.name' package.json)
 
 pipeline {
   agent any
@@ -20,7 +20,7 @@ pipeline {
         echo "project name2:${JOB_NAME}"
         echo "status:${BUILD_STATUS}"
         echo "custom name:${appname}"
-        echo "custom name1:${appname1}"
+        // echo "custom name1:${appname1}"
       }
     }
     stage('Build') {
