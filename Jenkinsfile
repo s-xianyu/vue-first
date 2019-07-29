@@ -9,7 +9,7 @@ pipeline {
   //      timestamps()
   }
   environment {
-    appname = sh(returnStdout: true, script: "jq -r '.name' package.json")
+    appname = sh(returnStdout: true, script: "jq -r '.name' package.json").trim()
   }
   stages {
     stage('Test') {
