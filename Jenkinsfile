@@ -35,14 +35,13 @@ pipeline {
             }
           } catch(err) { // timeout reached or input Aborted
               echo "${err}"
+              def user = err.getCauses()[0].getUser()
+                if('SYSTEM' == user.toString()) {
+                  echo ("Input timeout expired")
+                } else {
+                    echo "Input aborted by: [${user}]"
+                }
               sh 'exit 1'
-              //def user = err.getCauses()[0].getUser()
-              //  if('SYSTEM' == user.toString()) {
-              //    echo ("Input timeout expired")
-              //  } else {
-              //      echo "Input aborted by: [${user}]"
-              //      error("Pipeline aborted by: [${user}]")
-              //  }
             }
         }
         sh "docker push ${registry}/${appname}:${GIT_COMMIT}"
