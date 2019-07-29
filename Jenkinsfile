@@ -1,4 +1,4 @@
-def appname=$(jq -r '.name' package.json)
+def appname1=$(jq -r '.name' package.json)
 
 pipeline {
   agent any
@@ -6,8 +6,11 @@ pipeline {
   //    pollSCM('* * * * *')
   //}
   // 每个步骤打出时间戳
-  options {
-        timestamps()
+  //options {
+  //      timestamps()
+  //}
+  environment {
+    appname=$(jq -r '.name' package.json)
   }
   stages {
     stage('Test') {
@@ -17,6 +20,7 @@ pipeline {
         echo "project name2:${JOB_NAME}"
         echo "status:${BUILD_STATUS}"
         echo "custom name:${appname}"
+        echo "custom name1:${appname1}"
       }
     }
     stage('Build') {
