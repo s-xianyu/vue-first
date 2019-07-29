@@ -84,8 +84,17 @@ pipeline {
     //}
     stage('CleanWorkspace') {
       steps {
-        cleanWs(patterns: [[pattern: './k8s-yaml', type: 'INCLUDE']])
+        echo "clean k8s-yaml list"
+        // cleanWs(patterns: [[pattern: './k8s-yaml', type: 'INCLUDE']])
       }
+    }
+  }
+  post {
+    cleanup {
+      echo 'One way or another, I have finished'
+      dir("${workspace}/k8s-yaml") {
+        deleteDir()
+      } 
     }
   }
 }
