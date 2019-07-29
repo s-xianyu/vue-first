@@ -22,12 +22,12 @@ pipeline {
     stage('Build') {
       steps {
         input message: 'Finished using the web site? (Click "Proceed" to continue)'
-        sh 'docker build -t 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/${appname}:${GIT_COMMIT} .'
+        sh 'docker build -t ${registry}/${appname}:${GIT_COMMIT} .'
       }
     }
     stage('Push') {
       steps {
-        sh 'docker push 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com/${appname}:${GIT_COMMIT}'
+        sh 'docker push ${registry}/${appname}:${GIT_COMMIT}'
       }
     }
     stage('Clone k8s-yaml') {
