@@ -35,7 +35,7 @@ pipeline {
                 message: 'Input info',
                 parameters: [
                   [$class: 'TextParameterDefinition',
-                   defaultValue: push,
+                   defaultValue: 'push',
                    description: 'push image', name: 'enter push'
                   ]
                 ]
