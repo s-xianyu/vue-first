@@ -91,7 +91,7 @@ pipeline {
   }
   post {
     failure {
-      dingTalk  access Token:'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65',message:"发布失败，干得不错"
+      dingTalk  accessToken:"https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65",message:"发布失败，干得不错"
     }
     cleanup {
       echo 'One way or another, I have finished'
