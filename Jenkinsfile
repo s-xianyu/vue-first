@@ -31,17 +31,17 @@ pipeline {
         script {
           try {
             timeout(time:30, unit:'SECONDS') {
-              userInput = input(
-                message: 'Input info',
-                parameters: [
-                  [$class: 'TextParameterDefinition',
-                   defaultValue: 'push',
-                   description: 'push image', name: 'enter push'
-                  ]
-                ]
-              )
-              echo "123"
-              // input message: "this action will stop service, are you sure you want to execute？", ok: "push"
+              //userInput = input(
+              //  message: 'Input info',
+              //  parameters: [
+              //    [$class: 'TextParameterDefinition',
+              //     defaultValue: 'push',
+              //     description: 'push image', name: 'enter push'
+              //    ]
+              //  ]
+              //)
+              //echo "123"
+              input message: "this action will stop service, are you sure you want to execute？", ok: "push"
             }
           } catch(err) { // timeout reached or input Aborted
               echo "${err}"
@@ -70,16 +70,21 @@ pipeline {
         sh 'cd k8s-yaml && git add . && git commit -m  "Update ${appname} image version to ${GIT_COMMIT}" && git push origin master'
       }
     }
-    stage('CleanWS') {
+    //stage('CleanWS') {
+    //  steps {
+    //    script {
+    //      try {
+    //        deleteDir()
+    //      }catch(err){
+    //        echo "${err}"
+    //        sh 'exit 1'
+    //      }
+    //    }
+    //  }
+    //}
+    stage('CleanWorkspace') {
       steps {
-        script {
-          try {
-            deleteDir()
-          }catch(err){
-            echo "${err}"
-            sh 'exit 1'
-          }
-        }
+        cleanWs(patterns: [[pattern: './k8s-yaml', type: 'INCLUDE']])
       }
     }
   }
