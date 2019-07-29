@@ -1,3 +1,4 @@
+def 
 pipeline {
   agent any
   //triggers {
@@ -9,12 +10,14 @@ pipeline {
   //      timestamps()
   }
   environment {
+    registry = 905798597445.dkr.ecr.ap-southeast-1.amazonaws.com
     appname = sh(returnStdout: true, script: "jq -r '.name' package.json").trim()
   }
   stages {
     stage('Test') {
       steps {
-        echo "custom name:${appname}12341234"
+        echo "project name:${appname}"
+        echo "registry:${registry}"
       }
     }
     stage('Build') {
