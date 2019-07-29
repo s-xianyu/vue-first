@@ -21,13 +21,13 @@ pipeline {
     }
     stage('Build') {
       steps {
-        input message: "Finished using the web site? (Click "Proceed" to continue)"
-        sh 'docker build -t ${registry}/${appname}:${GIT_COMMIT} .'
+        input message: 'Finished using the web site? (Click "Proceed" to continue)'
+        sh "docker build -t ${registry}/${appname}:${GIT_COMMIT} ."
       }
     }
     stage('Push') {
       steps {
-        sh 'docker push ${registry}/${appname}:${GIT_COMMIT}'
+        sh "docker push ${registry}/${appname}:${GIT_COMMIT}"
       }
     }
     stage('Clone k8s-yaml') {
@@ -38,7 +38,7 @@ pipeline {
     stage('Update Yaml') {
       steps {
         sh 'sed -i "s/${appname}:.*$/${appname}:${GIT_COMMIT}/" k8s-yaml/front/${appname}.yaml'
-        sh 'cd k8s-yaml && git add . && git commit -m  "Update ${appname} image version to ${GIT_COMMIT}" && git push origin master'
+        sh "cd k8s-yaml && git add . && git commit -m  "Update ${appname} image version to ${GIT_COMMIT}" && git push origin master"
       }
     }
     stage('CleanWS') {
