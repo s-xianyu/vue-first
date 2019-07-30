@@ -61,7 +61,7 @@ pipeline {
       steps {
         echo "Checkout will be done for Git branch: master"
         // checkout([$class: 'GitSCM', branches: [[name: "*/master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: ${K8S_YAML_GIT_URL}]]])
-        checkout([$class: 'GitSCM', branches: [[name: 'origin/master']], userRemoteConfigs: [[url: "${K8S_YAML_GIT_URL}",credentialsId:'linjiale-gogs']])
+        checkout([$class: 'GitSCM', branches: [[name: 'origin/master']], userRemoteConfigs: [[url: "${K8S_YAML_GIT_URL}"],[credentialsId:'linjiale-gogs']])
         // sh "git clone ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git"
       }
     }
