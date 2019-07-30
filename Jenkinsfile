@@ -61,6 +61,7 @@ pipeline {
       steps {
         echo "Checkout will be done for Git branch: master"
         // checkout([$class: 'GitSCM', branches: [[name: "*/master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: ${K8S_YAML_GIT_URL}]]])
+        sh "mkdir k8s-yaml && cd k8s-yaml"
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'linjiale-gogs', url: 'ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git']]])
         // sh "git clone ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git"
       }
@@ -91,16 +92,16 @@ pipeline {
     //}
   }
   post {
-    success {
-      dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:'',
-      message:"构建完成，干得不错!"
-      echo "failure"
-    }
-    failure {
-      dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:'',
-      message:"发布失败，干得不错!"
-      echo "failure"
-    }
+    //success {
+    //  dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:'',
+    //  message:"构建完成，干得不错!"
+    //  echo "failure"
+    //}
+    //failure {
+    //  dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:'',
+    //  message:"发布失败，干得不错!"
+    //  echo "failure"
+    //}
     cleanup {
       echo 'One way or another, I have finished'
       dir("${workspace}/k8s-yaml") {
