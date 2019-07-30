@@ -61,7 +61,8 @@ pipeline {
       steps {
         echo "Checkout will be done for Git branch: master"
         // checkout([$class: 'GitSCM', branches: [[name: "*/master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: ${K8S_YAML_GIT_URL}]]])
-        sh "git clone ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git"
+        checkout([$class: 'GitSCM', branches: [[name: 'origin/master']], userRemoteConfigs: [[url: "${K8S_YAML_GIT_URL}",credentialsId:'linjiale-gogs']])
+        // sh "git clone ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git"
       }
     }
     stage('Update Yaml') {
@@ -90,6 +91,11 @@ pipeline {
     //}
   }
   post {
+    success {
+      dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:'',
+      message:"构建完成，干得不错!"
+      echo "failure"
+    }
     failure {
       dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:'',
       message:"发布失败，干得不错!"
