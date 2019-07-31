@@ -60,9 +60,10 @@ pipeline {
     stage('Clone k8s-yaml') {
       steps {
         echo "Checkout will be done for Git branch: master"
+        git credentialsID: 'linjiale-gogs', url: 'ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git'
         // checkout([$class: 'GitSCM', branches: [[name: "*/master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: ${K8S_YAML_GIT_URL}]]])
-        sh "mkdir k8s-yaml && cd k8s-yaml"
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'linjiale-gogs', url: 'ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git']]])
+        // sh "mkdir k8s-yaml && cd k8s-yaml"
+        // checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'linjiale-gogs', url: 'ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git']]])
         // sh "git clone ssh://git@git.wokoworks.com:2222/Devops/k8s-yaml.git"
       }
     }
