@@ -16,9 +16,9 @@ pipeline {
   stages {
     stage('Test') {
       steps {
+        sh '$(aws ecr get-login --no-include-email --region ap-southeast-1)'
         echo "project name:${appname}"
         echo "registry:${registry}"
-        sh '$(aws ecr get-login --no-include-email)'
       }
     }
     stage('Build') {
