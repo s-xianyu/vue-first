@@ -42,7 +42,15 @@ pipeline {
               //  ]
               //)
               //echo "123"
-              input message: "this action will stop service, are you sure you want to execute？", ok: "push"
+              //input message: "this action will stop service, are you sure you want to execute？", ok: "push"
+              input {
+                message "should we continue?"
+                ok "yes,we should."
+                submitter "linjiale"
+                parameters {
+                  string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                }
+              }
             }
           } catch(err) { // timeout reached or input Aborted
               echo "${err}"
@@ -55,6 +63,7 @@ pipeline {
               sh 'exit 1'
             }
         }
+        echo "hello, ${PERSON}, nice to meet you."
         sh "docker push ${registry}/${appname}:${GIT_COMMIT}"
       }
     }
