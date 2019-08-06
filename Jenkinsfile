@@ -23,7 +23,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        input message: 'one (Click "Proceed" to continue)'
+        // input message: 'one (Click "Proceed" to continue)'
         sh "docker build -t ${registry}/${appname}:${GIT_COMMIT} ."
       }
     }
