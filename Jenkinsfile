@@ -22,14 +22,14 @@ pipeline {
       }
     }
     stage('Build') {
-      steps {
-        post {
-          always {
-            dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:"http://192.168.20.93:8686",
-            message:"镜像构建完成，请项目老大点击通过，发布生产环境!", notifyPeople: 'linjiale'
-            echo "test one more"
-          }
+      post {
+        always {
+          dingTalk accessToken: 'https://oapi.dingtalk.com/robot/send?access_token=91d8100e91315c3940146c26597efe344eb23e5cfac31699848b0c68d264fe65', imageUrl:'', jenkinsUrl:"http://192.168.20.93:8686",
+          message:"镜像构建完成，请项目老大点击通过，发布生产环境!", notifyPeople: 'linjiale'
+          echo "test one more"
         }
+      }
+      steps {
         sh "docker build -t ${registry}/${appname}:${GIT_COMMIT} ."
       }
     }
