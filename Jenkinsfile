@@ -43,13 +43,17 @@ pipeline {
               //)
               //echo "123"
               //input message: "this action will stop service, are you sure you want to execute？", ok: "push"
-              input {
-                message "should we continue?"
-                ok "yes,we should."
-                submitter "linjiale"
-                parameters {
-                  string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                }
+              def IS_APPROVED = input(
+                message "should we continue?",
+                ok "yes,we should.",
+                submitter "admin",
+                parameters [
+                  string(name: 'IS_APPROVED', defaultValue: 'yes', description: 'deploy to xxx')
+                ]
+              )
+              if (IS_APPROVED != 'yes') {
+                currentBuild.result = "ABORTED"
+                error "User cancelled"
               }
             }
           } catch(err) { // timeout reached or input Aborted
@@ -60,6 +64,7 @@ pipeline {
               //  } else {
               //      echo "Input aborted by: [${user}]"
               //  }
+              error "errot expertion"
               sh 'exit 1'
             }
         }
