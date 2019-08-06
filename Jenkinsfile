@@ -30,7 +30,6 @@ pipeline {
             echo "test one more"
           }
         }
-        // input message: 'one (Click "Proceed" to continue)'
         sh "docker build -t ${registry}/${appname}:${GIT_COMMIT} ."
       }
     }
