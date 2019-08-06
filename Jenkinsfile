@@ -44,10 +44,10 @@ pipeline {
               //echo "123"
               //input message: "this action will stop service, are you sure you want to execute？", ok: "push"
               def IS_APPROVED = input(
-                message "should we continue?",
-                ok "yes,we should.",
-                submitter "admin",
-                parameters [
+                message: "should we continue?",
+                ok: "yes,we should.",
+                submitter: "admin",
+                parameters: [
                   string(name: 'IS_APPROVED', defaultValue: 'yes', description: 'deploy to xxx')
                 ]
               )
@@ -68,7 +68,6 @@ pipeline {
               sh 'exit 1'
             }
         }
-        echo "hello, ${PERSON}, nice to meet you."
         sh "docker push ${registry}/${appname}:${GIT_COMMIT}"
       }
     }
